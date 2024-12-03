@@ -61,7 +61,35 @@ public class RecipeUI {
      * 設問1: 一覧表示機能
      * RecipeFileHandlerから読み込んだレシピデータを整形してコンソールに表示します。
      */
+
+     /*
+      * 表示形式を出力する。
+      */
     private void displayRecipes() {
+        System.out.println("Main Menu:");
+        System.out.println("1: Display Recipes");
+        System.out.println("2: Add New Recipe");
+        System.out.println("3: Search Recipe");
+        System.out.println("4: Exit Application");
+        System.out.println("Please choose an option: 1");
+        System.out.println();
+        System.out.println("Recipes:");
+
+        RecipeFileHandler recRecipeFileHandleripes = new RecipeFileHandler();
+        recRecipeFileHandleripes.readRecipes();
+        while (!(recRecipeFileHandleripes.equals(null))){
+            System.out.println("-----------------------------------");
+            System.out.println("Recipe Name:"+ recRecipeFileHandleripes.readRecipes().get(0));
+            //for (int i = 1 ; i = recRecipeFileHandleripes.readRecipes().pairs[].length;)
+            System.out.println("Main Ingredients:" + recRecipeFileHandleripes.readRecipes().get(1));
+        }
+
+            System.out.println("No recipes available.");
+        
+
+        
+        
+
 
     }
 
