@@ -41,9 +41,11 @@ public class RecipeUI {
                         break;
                     case "2":
                         // 設問2: 新規登録機能
+                        addNewRecipe();
                         break;
                     case "3":
                         // 設問3: 検索機能
+                        searchRecipe();
                         break;
                     case "4":
                         System.out.println("Exit the application.");
@@ -67,34 +69,23 @@ public class RecipeUI {
       * 表示形式を出力する。
       */
     private void displayRecipes() {
-        System.out.println("Main Menu:");
-        System.out.println("1: Display Recipes");
-        System.out.println("2: Add New Recipe");
-        System.out.println("3: Search Recipe");
-        System.out.println("4: Exit Application");
-        System.out.println("Please choose an option: 1");
+
         System.out.println();
-        System.out.println("Recipes:");
-
-        //RecipeFileHandlerのインスタンス生成
-        RecipeFileHandler recRecipeFileHandleripes = new RecipeFileHandler();
-        //RecipeFileHandlerのreadRecipesメソッド呼び出し
-        recRecipeFileHandleripes.readRecipes();
-        //レシピデータを整形してコンソールに表示
-        while (!(recRecipeFileHandleripes.equals(null))){
-            System.out.println("-----------------------------------");
-            System.out.println("Recipe Name:"+ recRecipeFileHandleripes.readRecipes().get(0));
-            for (int i = 1 ; i < recRecipeFileHandleripes.readRecipes().size();i++)
-                System.out.println("Main Ingredients:" + recRecipeFileHandleripes.readRecipes().get(1));
-        }
-        //レシピデータが空の場合は、 No recipes available. というメッセージを出力
+        
+        ArrayList<String> recipes = fileHandler.readRecipes();
+        if (recipes.size() == 0){
             System.out.println("No recipes available.");
-        
-
-        
-        
-
-
+        }else{
+            System.out.println("Recipes:");
+            for (String recipe : recipes){
+                String menu = recipe.substring(0,recipe.indexOf(","));
+                String ingredients = recipe.substring(recipe.indexOf(",")+1);
+                System.out.println("-----------------------------------");
+                System.out.println("Recipe Name:"+ menu);
+                System.out.println("Main Ingredients: " + ingredients);
+            }
+            System.out.println("-----------------------------------");
+        }
     }
 
     /**
@@ -104,7 +95,23 @@ public class RecipeUI {
      * @throws java.io.IOException 入出力が受け付けられない
      */
     private void addNewRecipe() throws IOException {
+        try {
+            
+            System.out.println("メニューを入力してください");
+            String inputRecipe = reader.readLine();
+            System.out.println("主な食材を「,」区切りで入力してください");
+            String inputIngredients = reader.readLine();
+            
+            fileHandler.addRecipe(inputRecipe, inputIngredients);
+            
+            System.out.println("Recipe added successfully.");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 
+        //2が呼ばれる
+        //入力を求める
+        //
     }
 
     /**
@@ -114,6 +121,10 @@ public class RecipeUI {
      * @throws java.io.IOException 入出力が受け付けられない
      */
     private void searchRecipe() throws IOException {
+        System.out.println("Enter search query");
+        String inputQuery = reader.readLine();
+        
+
 
     }
 

@@ -1,10 +1,14 @@
 package data;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import ui.RecipeUI;
 
 public class RecipeFileHandler {
     private String filePath;
@@ -24,33 +28,20 @@ public class RecipeFileHandler {
      * @return レシピデータ
      */
 
-    /*
-     * 読み込んだデータを「,」で区切る
-     * 「,」で区切ったデータを配列にする。
-     * 配列をArrayListにして返す
-     */
     public ArrayList<String> readRecipes() {
+        ArrayList<String> list = new ArrayList<>();
         //ファイルの読み込み
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line ;
             //ファイルを読み込む
             while ((line = reader.readLine()) != null) {
-                //読み込んだファイルを「,」で区切り配列にする。
-                String[] pairs = line.split(",");
-                //アレイリストを生成
-                ArrayList<String> list = new ArrayList<>();
-                //「,」で区切った配列をアレイリストに入れる
-                for (int i = 0 ; i < pairs.length; i++){
-                    list.add(pairs[i]);
-                }
-                //作成したアレイリストを返す
-                return list;
+                list.add(line);
             }
             //例外が発生した場合はError reading file: 例外のメッセージとコンソールに表示する
         } catch (IOException e) {
             System.out.println("Error reading file:" + e.getMessage());
         }
-        return null;
+        return list;
     }
 
     /**
@@ -62,11 +53,15 @@ public class RecipeFileHandler {
      * @param ingredients 材料名
      */
      // 
-    public void addRecipe(String recipeName, String ingredients) {
-        // try {
-
-        // } catch (IOException e) {
-
-        // }
+    public void addRecipe(String recipe, String ingredients) {
+        try  (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath,true))){
+            String writeString = "";
+            writeString = recipe + "," + ingredients;
+            //ファイルに書き込む処理
+            writer.write(writeString);
+            writer.newLine();
+        } catch (IOException e) {
+            System.out.println("Error reading file:" + e.getMessage());
+        }
     }
 }
