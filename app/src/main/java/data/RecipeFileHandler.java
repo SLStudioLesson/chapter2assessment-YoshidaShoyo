@@ -30,18 +30,23 @@ public class RecipeFileHandler {
      * 配列をArrayListにして返す
      */
     public ArrayList<String> readRecipes() {
+        //ファイルの読み込み
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line ;
+            //ファイルを読み込む
             while ((line = reader.readLine()) != null) {
+                //読み込んだファイルを「,」で区切り配列にする。
                 String[] pairs = line.split(",");
-
+                //アレイリストを生成
                 ArrayList<String> list = new ArrayList<>();
+                //「,」で区切った配列をアレイリストに入れる
                 for (int i = 0 ; i < pairs.length; i++){
                     list.add(pairs[i]);
                 }
+                //作成したアレイリストを返す
                 return list;
             }
-
+            //例外が発生した場合はError reading file: 例外のメッセージとコンソールに表示する
         } catch (IOException e) {
             System.out.println("Error reading file:" + e.getMessage());
         }

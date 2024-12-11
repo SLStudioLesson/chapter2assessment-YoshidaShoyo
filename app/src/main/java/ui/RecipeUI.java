@@ -37,6 +37,7 @@ public class RecipeUI {
                 switch (choice) {
                     case "1":
                         // 設問1: 一覧表示機能
+                        displayRecipes();
                         break;
                     case "2":
                         // 設問2: 新規登録機能
@@ -75,15 +76,18 @@ public class RecipeUI {
         System.out.println();
         System.out.println("Recipes:");
 
+        //RecipeFileHandlerのインスタンス生成
         RecipeFileHandler recRecipeFileHandleripes = new RecipeFileHandler();
+        //RecipeFileHandlerのreadRecipesメソッド呼び出し
         recRecipeFileHandleripes.readRecipes();
+        //レシピデータを整形してコンソールに表示
         while (!(recRecipeFileHandleripes.equals(null))){
             System.out.println("-----------------------------------");
             System.out.println("Recipe Name:"+ recRecipeFileHandleripes.readRecipes().get(0));
-            //for (int i = 1 ; i = recRecipeFileHandleripes.readRecipes().pairs[].length;)
-            System.out.println("Main Ingredients:" + recRecipeFileHandleripes.readRecipes().get(1));
+            for (int i = 1 ; i < recRecipeFileHandleripes.readRecipes().size();i++)
+                System.out.println("Main Ingredients:" + recRecipeFileHandleripes.readRecipes().get(1));
         }
-
+        //レシピデータが空の場合は、 No recipes available. というメッセージを出力
             System.out.println("No recipes available.");
         
 
